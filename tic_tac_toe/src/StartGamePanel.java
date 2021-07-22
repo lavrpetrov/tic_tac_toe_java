@@ -17,11 +17,13 @@ public class StartGamePanel extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ((chooseXor0.getItemAt(chooseXor0.getSelectedIndex())).toString().equals("Крестики")){
-                    Main.playingField.setPlayer(1);
+                if ((chooseXor0.getItemAt(chooseXor0.getSelectedIndex())).equals("Крестики")){
+                    Control.player=1;
+                    Control.computer=0;
                 }
                 else{
-                    Main.playingField.setPlayer(1);
+                    Control.player=0;
+                    Control.computer=1;
                 }
                 Main.mainFrame.setContentPane(Main.playingField.getPlayingField());
                 Main.mainFrame.validate();
