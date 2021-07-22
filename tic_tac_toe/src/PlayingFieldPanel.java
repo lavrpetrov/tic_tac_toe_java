@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 //1-крестики  0-нолики
 public class PlayingFieldPanel extends JPanel {
-    private Integer player=1;
-    private Integer computer=0;
+    private Painter painter;
+    private Thread thread;
     private JPanel playingField;
     private JLabel name;
     private JLabel text;
@@ -13,12 +13,31 @@ public class PlayingFieldPanel extends JPanel {
         initComponents();
     }
     public void setPlayer(Integer ticOrToe){
-        player=ticOrToe;
-        computer=Math.abs(ticOrToe-1);
+        Control.player=ticOrToe;
+        Control.computer=Math.abs(ticOrToe-1);
+
+    }
+    public void startThread() {
+        thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    painter.repaint();
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException ignored) {}
+                }
+
+            }
+        }
+        );
+
+        thread.start();
 
     }
     private void initComponents() {
         playingField=new JPanel();
+        painter=new Painter();
         name = new JLabel();
         text =new JLabel();
         playingField.setBackground(new Color(148, 204, 227));
@@ -54,6 +73,13 @@ public class PlayingFieldPanel extends JPanel {
         text.setBackground(new Color(194, 103, 160));
         text.setForeground(new Color(194, 103, 160));
         playingField.add(text, "cell 3 1,align center center,grow 0 0");
+
+        //---- painter ----
+        painter.setBackground(new Color(148, 204, 227));
+        painter.setLayout(null);
+        playingField.add(painter, "cell 1 2 3 6");
+
+
 
 
     }
