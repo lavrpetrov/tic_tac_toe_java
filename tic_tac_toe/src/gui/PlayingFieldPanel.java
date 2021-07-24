@@ -24,18 +24,13 @@ public class PlayingFieldPanel extends JPanel {
             @Override
             public void run() {
                 while (true){
-                    System.out.println(painter.getWhoseTurn());
                     painter.repaint();
-
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ignored) {}
-
                     if (painter.getWhoseTurn()==false){
                         painter.setWhoseTurn(true);
-                        System.out.println("Ход компьютера-PFP33");
                         painter.computersResponse();
-                        System.out.println("Ход компьютера завершен-PFP36");
 
                     }
 

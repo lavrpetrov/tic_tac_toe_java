@@ -27,7 +27,6 @@ public class StartGamePanel extends JPanel {
 
                 }
                 else{
-                    System.out.println("Пользователь играет ноликами -SGP30");
                     Control.player=0;
                     Control.computer=1;
                 }

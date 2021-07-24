@@ -54,53 +54,47 @@ public class Painter extends JPanel {
     }
     public void computersResponse(){
             computerChoice=control.computerChoice();
-            System.out.println("painter 58- Компьютер сходил в "+computerChoice[0]+" "+computerChoice[1]);
+            System.out.println("Ход компьютера "+computerChoice[0]+" "+computerChoice[1]);
             if(computerChoice[0]==-1 &&computerChoice[0]==-1){
                 System.out.println("Ничья");
             }
             else{
-                if (computerChoice[0]==0 &&computerChoice[0]==0){
+                if (computerChoice[0]==0 && computerChoice[1]==0){
                 drawXOR0(w1,h1,Control.computer);
                 }
-                if (computerChoice[0]==0 &&computerChoice[0]==1){
+                if (computerChoice[0]==0 && computerChoice[1]==1){
                     drawXOR0(w2,h1,Control.computer);
                 }
-                if (computerChoice[0]==0 &&computerChoice[0]==2){
+                if (computerChoice[0]==0 && computerChoice[1]==2){
                     drawXOR0(w3,h1,Control.computer);
                 }
-                computerChoice=control.computerChoice();
-                if (computerChoice[0]==1 &&computerChoice[0]==0){
+                if (computerChoice[0]==1 &&computerChoice[1]==0){
                     drawXOR0(w1,h2,Control.computer);
                 }
-                computerChoice=control.computerChoice();
-                if (computerChoice[0]==1 &&computerChoice[0]==1){
+                if (computerChoice[0]==1 &&computerChoice[1]==1){
                     drawXOR0(w2,h2,Control.computer);
                 }
-                computerChoice=control.computerChoice();
-                if (computerChoice[0]==1 &&computerChoice[0]==2){
+                if (computerChoice[0]==1 &&computerChoice[1]==2){
                     drawXOR0(w3,h2,Control.computer);
                 }
-                computerChoice=control.computerChoice();
-                if (computerChoice[0]==2 &&computerChoice[0]==0){
+                if (computerChoice[0]==2 &&computerChoice[1]==0){
                     drawXOR0(w1,h3,Control.computer);
                 }
-                if (computerChoice[0]==2 &&computerChoice[0]==1){
+                if (computerChoice[0]==2 &&computerChoice[1]==1){
                     drawXOR0(w2,h3,Control.computer);
                 }
-                if (computerChoice[0]==2 &&computerChoice[0]==2){
+                if (computerChoice[0]==2 &&computerChoice[1]==2){
                     drawXOR0(w3,h3,Control.computer);
                 }
-                System.out.println("paint 166 - Добавили фигуру");
+
             }
 
     }
     //Проверяем, куда тыкнул пользователь
     private void checkForClick(MouseEvent e) {
-        System.out.println("Пользователь тыкнул- painter 98");
         if (whoseTurn==true){
             if (e.getX()>=w1&&e.getX()<=w2&&e.getY()>=h1&&e.getY()<=h2){
                 //1 клеточка
-                System.out.println(control.checkSquare(0,0, Control.player));
                 if (control.checkSquare(0,0, Control.player)){
                     drawXOR0(w1,h1, Control.player);
                     whoseTurn=false;

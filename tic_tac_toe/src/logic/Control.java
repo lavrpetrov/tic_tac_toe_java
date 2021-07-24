@@ -26,24 +26,28 @@ public class Control {
         int[] ret={-1,-1};
         int i=0;
         while(ret[0]==-1 && i<9){
-            System.out.println("control29 - ret:" +ret[0]+ret[1]);
             if (tictactoe[randomMassiv[i][0]][randomMassiv[i][1]]==-1){
                 tictactoe[randomMassiv[i][0]][randomMassiv[i][1]]=computer;
                 ret[0]=randomMassiv[i][0];
                 ret[1]=randomMassiv[i][1];
-                System.out.println("control33 - Выбрали клетку "+randomMassiv[i][0]+" "+randomMassiv[i][1]);
-                System.out.println("control34 - ret:" +ret[0]+ret[1]);
+
             }
             i++;
         }
-        System.out.println("control 39 - Цикл закончился");
+        print();
         return ret;
+    }
+    private void print(){
+        for (int i=0;i<3;i++){
+            System.out.println(tictactoe[i][0]+" "+tictactoe[i][1]+" "+tictactoe[i][2]);
+        }
     }
     public boolean checkSquare(int i,int j,int xOr0){
         boolean check=false;
         if (tictactoe[i][j]==-1) {
             tictactoe[i][j]=player;
             check=true;}
+        print();
         return check;
     }
 
