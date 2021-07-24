@@ -1,3 +1,8 @@
+package logic;
+
+import gui.PlayingFieldPanel;
+import gui.StartGamePanel;
+
 import javax.swing.*;
 
 public class Main {
@@ -5,8 +10,9 @@ public class Main {
     public static PlayingFieldPanel playingField;
     public static StartGamePanel startGamePanel;
     public static void main(String[] args) {
+        Control control=new Control();
         mainFrame=new JFrame();
-        playingField=new PlayingFieldPanel();
+        playingField=new PlayingFieldPanel(control);
         startGamePanel=new StartGamePanel();
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setSize(700, 500);

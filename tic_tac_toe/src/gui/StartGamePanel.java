@@ -1,3 +1,7 @@
+package gui;
+
+import logic.Control;
+import logic.Main;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -20,8 +24,10 @@ public class StartGamePanel extends JPanel {
                 if ((chooseXor0.getItemAt(chooseXor0.getSelectedIndex())).equals("Крестики")){
                     Control.player=1;
                     Control.computer=0;
+
                 }
                 else{
+                    System.out.println("Пользователь играет ноликами -SGP30");
                     Control.player=0;
                     Control.computer=1;
                 }

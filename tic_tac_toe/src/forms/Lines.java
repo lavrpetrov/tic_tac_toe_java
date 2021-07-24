@@ -1,3 +1,5 @@
+package forms;
+
 public class Lines {
     private int x1;
     private int y1;

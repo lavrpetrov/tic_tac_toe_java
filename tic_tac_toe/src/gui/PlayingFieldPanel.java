@@ -1,31 +1,44 @@
+package gui;
+
+import gui.Painter;
+import logic.Control;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
 //1-крестики  0-нолики
 public class PlayingFieldPanel extends JPanel {
-    private Painter painter;
+    private gui.Painter painter;
     private Thread thread;
     private JPanel playingField;
     private JLabel name;
     private JLabel text;
-    public PlayingFieldPanel(){
+    private Control control;
+    public PlayingFieldPanel(Control control){
+        this.control=control;
         initComponents();
     }
-    public void setPlayer(Integer ticOrToe){
-        Control.player=ticOrToe;
-        Control.computer=Math.abs(ticOrToe-1);
 
-    }
     public void startThread() {
         thread=new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true){
+                    System.out.println(painter.getWhoseTurn());
                     painter.repaint();
+
                     try {
-                        Thread.sleep(300);
+                        Thread.sleep(1000);
                     } catch (InterruptedException ignored) {}
+
+                    if (painter.getWhoseTurn()==false){
+                        painter.setWhoseTurn(true);
+                        System.out.println("Ход компьютера-PFP33");
+                        painter.computersResponse();
+                        System.out.println("Ход компьютера завершен-PFP36");
+
+                    }
+
                 }
 
             }
@@ -37,7 +50,7 @@ public class PlayingFieldPanel extends JPanel {
     }
     private void initComponents() {
         playingField=new JPanel();
-        painter=new Painter();
+        painter=new Painter(control);
         name = new JLabel();
         text =new JLabel();
         playingField.setBackground(new Color(148, 204, 227));
@@ -84,7 +97,9 @@ public class PlayingFieldPanel extends JPanel {
 
     }
     public JPanel getPlayingField(){
+        painter.setWhoseTurn();
         return playingField;
+
     }
 
 }
