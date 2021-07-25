@@ -2,6 +2,7 @@ package gui;
 
 import gui.Painter;
 import logic.Control;
+import logic.Main;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -14,23 +15,29 @@ public class PlayingFieldPanel extends JPanel {
     private JLabel name;
     private JLabel text;
     private Control control;
+    private boolean play;
     public PlayingFieldPanel(Control control){
         this.control=control;
         initComponents();
     }
 
     public void startThread() {
+        play=true;
         thread=new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
+                while (play){
                     painter.repaint();
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ignored) {}
                     if (painter.getWhoseTurn()==false){
                         painter.setWhoseTurn(true);
-                        painter.computersResponse();
+                        if (painter.computersResponse()){
+                            play=false;
+                            Main.mainFrame.setContentPane(Main.endGamePanel.getEndGamePanel());
+                            Main.mainFrame.validate();
+                        }
 
                     }
 
@@ -43,9 +50,12 @@ public class PlayingFieldPanel extends JPanel {
         thread.start();
 
     }
+    public void setPlay(boolean set){
+        play=set;
+    }
     private void initComponents() {
         playingField=new JPanel();
-        painter=new Painter(control);
+        painter=new Painter(control,this);
         name = new JLabel();
         text =new JLabel();
         playingField.setBackground(new Color(148, 204, 227));

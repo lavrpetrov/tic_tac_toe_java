@@ -28,7 +28,9 @@ public class Painter extends JPanel {
     private boolean whoseTurn;
     private int length;
     private Control control;
-    public Painter(Control control){
+    private PlayingFieldPanel playingFieldPanel;
+    public Painter(Control control,PlayingFieldPanel playingFieldPanel){
+        this.playingFieldPanel=playingFieldPanel;
         this.control=control;
         drawLines=new ArrayList<>();
         drawCircles=new ArrayList<>();
@@ -52,55 +54,93 @@ public class Painter extends JPanel {
             whoseTurn=false;
         }
     }
-    public void computersResponse(){
-            computerChoice=control.computerChoice();
-            System.out.println("Ход компьютера "+computerChoice[0]+" "+computerChoice[1]);
-            if(computerChoice[0]==-1 &&computerChoice[0]==-1){
-                System.out.println("Ничья");
-            }
-            else{
-                if (computerChoice[0]==0 && computerChoice[1]==0){
-                drawXOR0(w1,h1,Control.computer);
-                }
-                if (computerChoice[0]==0 && computerChoice[1]==1){
-                    drawXOR0(w2,h1,Control.computer);
-                }
-                if (computerChoice[0]==0 && computerChoice[1]==2){
-                    drawXOR0(w3,h1,Control.computer);
-                }
-                if (computerChoice[0]==1 &&computerChoice[1]==0){
-                    drawXOR0(w1,h2,Control.computer);
-                }
-                if (computerChoice[0]==1 &&computerChoice[1]==1){
-                    drawXOR0(w2,h2,Control.computer);
-                }
-                if (computerChoice[0]==1 &&computerChoice[1]==2){
-                    drawXOR0(w3,h2,Control.computer);
-                }
-                if (computerChoice[0]==2 &&computerChoice[1]==0){
-                    drawXOR0(w1,h3,Control.computer);
-                }
-                if (computerChoice[0]==2 &&computerChoice[1]==1){
-                    drawXOR0(w2,h3,Control.computer);
-                }
-                if (computerChoice[0]==2 &&computerChoice[1]==2){
-                    drawXOR0(w3,h3,Control.computer);
-                }
+    public boolean computersResponse(){
+        boolean returnn=false;
+        if (control.checkWinner(Control.player)){
+            //выиграл пользователь
+            returnn=true;
+            playingFieldPanel.setPlay(false);
+            Main.endGamePanel.setResult("Вы выиграли!!!");
 
+        }else {
+            if (control.emptyCell()){
+                //ничья
+                returnn=true;
+                playingFieldPanel.setPlay(false);
+                Main.endGamePanel.setResult("Ничья");
             }
 
+        }
+        this.repaint();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException ignored) {}
+        if (returnn==false) {
+            computerChoice = control.computerChoice();
+            if (computerChoice[0] == -1 && computerChoice[0] == -1) {
+                returnn = true;
+                Main.endGamePanel.setResult("Ничья");
+            } else {
+                if (computerChoice[0] == 0 && computerChoice[1] == 0) {
+                    drawXOR0(w1, h1, Control.computer);
+                }
+                if (computerChoice[0] == 0 && computerChoice[1] == 1) {
+                    drawXOR0(w2, h1, Control.computer);
+                }
+                if (computerChoice[0] == 0 && computerChoice[1] == 2) {
+                    drawXOR0(w3, h1, Control.computer);
+                }
+                if (computerChoice[0] == 1 && computerChoice[1] == 0) {
+                    drawXOR0(w1, h2, Control.computer);
+                }
+                if (computerChoice[0] == 1 && computerChoice[1] == 1) {
+                    drawXOR0(w2, h2, Control.computer);
+                }
+                if (computerChoice[0] == 1 && computerChoice[1] == 2) {
+                    drawXOR0(w3, h2, Control.computer);
+                }
+                if (computerChoice[0] == 2 && computerChoice[1] == 0) {
+                    drawXOR0(w1, h3, Control.computer);
+                }
+                if (computerChoice[0] == 2 && computerChoice[1] == 1) {
+                    drawXOR0(w2, h3, Control.computer);
+                }
+                if (computerChoice[0] == 2 && computerChoice[1] == 2) {
+                    drawXOR0(w3, h3, Control.computer);
+                }
+                this.repaint();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ignored) {}
+                if (control.checkWinner(Control.computer)) {
+                    //выиграл комп
+                    returnn=true;
+                    playingFieldPanel.setPlay(false);
+                    Main.endGamePanel.setResult("Вы проиграли((( компьютер вас обыграл");
+
+                }else{
+                    if (control.emptyCell()){
+                        //ничья
+                        returnn=true;
+                        playingFieldPanel.setPlay(false);
+                        Main.endGamePanel.setResult("Ничья");
+                    }
+                }
+            }
+        }
+        return returnn;
     }
     //Проверяем, куда тыкнул пользователь
     private void checkForClick(MouseEvent e) {
         if (whoseTurn==true){
-            if (e.getX()>=w1&&e.getX()<=w2&&e.getY()>=h1&&e.getY()<=h2){
+            if (e.getX()>w1&&e.getX()<w2&&e.getY()>h1&&e.getY()<h2){
                 //1 клеточка
                 if (control.checkSquare(0,0, Control.player)){
                     drawXOR0(w1,h1, Control.player);
                     whoseTurn=false;
                 }
             }
-            if (e.getX()>=w2&&e.getX()<=w3&&e.getY()>=h1&&e.getY()<=h2){
+            if (e.getX()>w2&&e.getX()<w3&&e.getY()>h1&&e.getY()<h2){
                 //2 клеточка
                 if (control.checkSquare(0,1, Control.player)){
                     drawXOR0(w2,h1, Control.player);
@@ -108,49 +148,49 @@ public class Painter extends JPanel {
                 }
 
             }
-            if (e.getX()>=w3&&e.getX()<=w4&&e.getY()>=h1&&e.getY()<=h2){
+            if (e.getX()>w3&&e.getX()<w4&&e.getY()>h1&&e.getY()<h2){
                 //3 клеточка
                 if (control.checkSquare(0,2, Control.player)){
                     drawXOR0(w3,h1, Control.player);
                     whoseTurn=false;
                 }
             }
-            if (e.getX()>=w1&&e.getX()<=w2&&e.getY()>=h2&&e.getY()<=h3){
+            if (e.getX()>w1&&e.getX()<w2&&e.getY()>h2&&e.getY()<h3){
                 //4 клеточка
                 if (control.checkSquare(1,0, Control.player)){
                     drawXOR0(w1,h2, Control.player);
                     whoseTurn=false;
                 }
             }
-            if (e.getX()>=w1&&e.getX()<=w2&&e.getY()>=h3&&e.getY()<=h4){
+            if (e.getX()>w1&&e.getX()<w2&&e.getY()>h3&&e.getY()<h4){
                 //7 клеточка
                 if (control.checkSquare(2,0, Control.player)){
                     drawXOR0(w1,h3, Control.player);
                     whoseTurn=false;
                 }
             }
-            if (e.getX()>=w2&&e.getX()<=w3&&e.getY()>=h2&&e.getY()<=h3){
+            if (e.getX()>w2&&e.getX()<w3&&e.getY()>h2&&e.getY()<h3){
                 //5 клеточка
                 if (control.checkSquare(1,1, Control.player)){
                     drawXOR0(w2,h2, Control.player);
                     whoseTurn=false;
                 }
             }
-            if (e.getX()>=w3&&e.getX()<=w4&&e.getY()>=h2&&e.getY()<=h3){
+            if (e.getX()>w3&&e.getX()<w4&&e.getY()>h2&&e.getY()<h3){
                 //6 клеточка
                 if (control.checkSquare(1,2, Control.player)){
                     drawXOR0(w3,h2, Control.player);
                     whoseTurn=false;
                 }
             }
-            if (e.getX()>=w2&&e.getX()<=w3&&e.getY()>=h3&&e.getY()<=h4){
+            if (e.getX()>w2&&e.getX()<w3&&e.getY()>h3&&e.getY()<h4){
                 //8 клеточка
                 if (control.checkSquare(2,1, Control.player)){
                     drawXOR0(w2,h3, Control.player);
                     whoseTurn=false;
                 }
             }
-            if (e.getX()>=w3&&e.getX()<=w4&&e.getY()>=h3&&e.getY()<=h4){
+            if (e.getX()>w3&&e.getX()<w4&&e.getY()>h3&&e.getY()<h4){
                 //9 клеточка
                 if (control.checkSquare(2,2, Control.player)){
                     drawXOR0(w3,h3, Control.player);
@@ -158,6 +198,8 @@ public class Painter extends JPanel {
                 }
 
             }
+
+
 
         }
 

@@ -3,11 +3,12 @@ package logic;
 import java.util.Random;
 
 public class Control {
-    private int [][] tictactoe={{-1,-1,-1},{-1,-1,-1},{-1,-1,-1}};
+    private int [][] tictactoe;
     private int[][] randomMassiv={{0,0},{0,1},{0,2},{1,0},{1,1},{1,2},{2,0},{2,1},{2,2}};
     public static Integer player=1;
     public static Integer computer=0;
     public Control(){
+        tictactoe= new int[][]{{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}};
         random();
     }
     private void random(){
@@ -17,9 +18,6 @@ public class Control {
             int[] a = randomMassiv[index];
             randomMassiv[index] = randomMassiv[i];
             randomMassiv[i] = a;
-
-        }for (int i=0;i<=8;i++){
-            System.out.println(randomMassiv[i][0]+" "+randomMassiv[i][1]);
         }
     }
     public int[] computerChoice(){
@@ -34,21 +32,53 @@ public class Control {
             }
             i++;
         }
-        print();
         return ret;
-    }
-    private void print(){
-        for (int i=0;i<3;i++){
-            System.out.println(tictactoe[i][0]+" "+tictactoe[i][1]+" "+tictactoe[i][2]);
-        }
     }
     public boolean checkSquare(int i,int j,int xOr0){
         boolean check=false;
         if (tictactoe[i][j]==-1) {
             tictactoe[i][j]=player;
             check=true;}
-        print();
         return check;
     }
+    //вернет true, если не осталось пустых ячеек
+    public boolean emptyCell(){
+        boolean returnn=true;
+        for (int i =0;i<3;i++){
+            for (int j=0;j<3;j++){
+                if (tictactoe[i][j]==-1){
+                    returnn=false;
+                }
+            }
+        }
+        return returnn;
+    }
+    public boolean checkWinner(int symb){
+        boolean returnn=false;
+        boolean toright, toleft;
+        toright = true;
+        toleft = true;
+        for (int i=0; i<3; i++) {
+            toright &= (tictactoe[i][i] == symb);
+            toleft &= (tictactoe[3-i-1][i] == symb);
+        }
+        boolean cols, rows;
+        for (int col=0; col<3; col++) {
+            cols = true;
+            rows = true;
+            for (int row=0; row<3; row++) {
+                cols &= (tictactoe[col][row] == symb);
+                rows &= (tictactoe[row][col] == symb);
+            }
+
+            if (cols || rows) {
+                returnn= true;
+                break;
+            }
+        }
+        if (toright || toleft) returnn= true;
+        return returnn;
+    }
+
 
 }
