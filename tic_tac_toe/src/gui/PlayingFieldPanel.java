@@ -58,7 +58,7 @@ public class PlayingFieldPanel extends JPanel {
         painter=new Painter(control,this);
         name = new JLabel();
         text =new JLabel();
-        playingField.setBackground(new Color(148, 204, 227));
+        playingField.setBackground(new Color(211, 211, 211));
         playingField.setLayout(new MigLayout(
                 "insets 0,hidemode 3",
                 // columns
@@ -80,22 +80,22 @@ public class PlayingFieldPanel extends JPanel {
         //---- name ----
         name.setText("TIC TAC TOE");
         name.setHorizontalAlignment(SwingConstants.CENTER);
-        name.setFont(new Font("Arial",Font.PLAIN, 50));
-        name.setBackground(new Color(255, 102, 102));
-        name.setForeground(new Color(194, 103, 160));
-        playingField.add(name, "cell 3 0,align center center,grow 0 0");
+        name.setFont(new Font("Arial",Font.BOLD, 50));
+        name.setBackground(new Color(119, 136, 153));
+        name.setForeground(new Color(119, 136, 153));
+        playingField.add(name, "cell 2 0,align center center,grow 0 0");
         //---- text ----
         text.setText("Чтобы сделать ход, нажмите на пустую клетку");
         text.setHorizontalAlignment(SwingConstants.CENTER);
-        text.setFont(new Font("Arial",Font.BOLD, 18));
+        text.setFont(new Font("Arial",Font.BOLD, 20));
         text.setBackground(new Color(194, 103, 160));
         text.setForeground(new Color(194, 103, 160));
-        playingField.add(text, "cell 3 1,align center center,grow 0 0");
+        playingField.add(text, "cell 2 1,align center center,grow 0 0");
 
         //---- painter ----
-        painter.setBackground(new Color(148, 204, 227));
+        painter.setBackground(new Color(211,211,211));
         painter.setLayout(null);
-        playingField.add(painter, "cell 1 2 3 6");
+        playingField.add(painter, "cell 2 2 1 5, align center center ");
 
 
 

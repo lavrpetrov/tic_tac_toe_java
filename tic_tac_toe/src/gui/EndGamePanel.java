@@ -1,9 +1,12 @@
 package gui;
 
+import logic.Main;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class EndGamePanel extends JPanel {
     private JPanel endGamePanel;
@@ -15,6 +18,15 @@ public class EndGamePanel extends JPanel {
 
     public EndGamePanel(){
         initComponents();
+        yesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.mainFrame.setContentPane(Main.startGamePanel.getStartGamePanel());
+                Main.mainFrame.validate();
+                Main.start();
+            }
+        });
+
 
     }
     public void setResult(String result){
@@ -28,7 +40,7 @@ public class EndGamePanel extends JPanel {
         question = new JLabel();
         yesButton=new JButton();
         noButton=new JButton();
-        endGamePanel.setBackground(new Color(148, 204, 227));
+        endGamePanel.setBackground(new Color(211,211,211));
         endGamePanel.setLayout(new MigLayout(
                 "insets 0,hidemode 3",
                 // columns
@@ -47,18 +59,18 @@ public class EndGamePanel extends JPanel {
                         "[48]" +
                         "[]" +
                         "[]" +
-                        "[214,grow,fill]" +
                         "[]" +
-                        "[]"
+                        "[]" +
+                        "[214,grow,fill]"
 
         ));
 
         //---- name ----
         name.setText("TIC TAC TOE");
         name.setHorizontalAlignment(SwingConstants.CENTER);
-        name.setFont(new Font("Arial",Font.BOLD, 70));
-        name.setBackground(new Color(194, 103, 160));
-        name.setForeground(new Color(194, 103, 160));
+        name.setFont(new Font("Arial",Font.BOLD, 50));
+        name.setBackground(new Color(119, 136, 153));
+        name.setForeground(new Color(119, 136, 153));
         endGamePanel.add(name, "cell 4 0,align center center,grow 0 0");
 
         //---- result ----
@@ -75,13 +87,13 @@ public class EndGamePanel extends JPanel {
         question.setFont(new Font("Arial",Font.BOLD, 20));
         question.setBackground(new Color(194, 103, 160));
         question.setForeground(new Color(194, 103, 160));
-        endGamePanel.add(question, "cell 4 2,align center center,grow 0 0");
+        endGamePanel.add(question, "cell 4 3,align center center,grow 0 0");
         //---- yesButton ----
         yesButton.setText("Да");
         yesButton.setFont(new Font("Arial", Font.PLAIN, 20));
-        yesButton.setBackground(new Color(148, 201, 242));
+        yesButton.setBackground(new Color(	171, 224, 255));
         yesButton.setForeground(new Color(40, 61, 82));
-        endGamePanel.add(yesButton, "cell 5 5,align center center,grow 0 0,width 100:150:250,height 30:35:45");
+        endGamePanel.add(yesButton, "cell 4 5,align center center,grow 0 0,width 100:150:250,height 30:35:45");
 
         //---- noButton ----
         noButton.setText("Нет");

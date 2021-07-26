@@ -45,7 +45,7 @@ public class StartGamePanel extends JPanel {
         chooseXor0=new JComboBox<>();
         startButton=new JButton();
 
-        startGamePanel.setBackground(new Color(148, 204, 227));
+        startGamePanel.setBackground(new Color(211,211,211));
         startGamePanel.setLayout(new MigLayout(
                 "insets 0,hidemode 3",
                 // columns
@@ -53,9 +53,12 @@ public class StartGamePanel extends JPanel {
                         "[fill]" +
                         "[fill]" +
                         "[fill]" +
+                        "[grow,fill]" +
+                        "[grow,fill]" +
                         "[fill]" +
                         "[fill]" +
-                        "[fill]" ,
+                        "[fill]" +
+                        "[fill]",
                 // rows
                 "[150,grow,fill]" +
                         "[]" +
@@ -70,21 +73,21 @@ public class StartGamePanel extends JPanel {
         //---- name ----
         name.setText("TIC TAC TOE");
         name.setHorizontalAlignment(SwingConstants.CENTER);
-        name.setFont(new Font("Arial",Font.BOLD, 25));
-        name.setBackground(new Color(194, 103, 160));
-        name.setForeground(new Color(194, 103, 160));
+        name.setFont(new Font("Arial",Font.BOLD, 50));
+        name.setBackground(new Color(119, 136, 153));
+        name.setForeground(new Color(119, 136, 153));
         startGamePanel.add(name, "cell 4 0 2 1,align center center,grow 0 0");
         //---- text ----
         text.setText("Вы хотите играть крестиками или но ликами?");
         text.setHorizontalAlignment(SwingConstants.CENTER);
-        text.setFont(new Font("Arial",Font.BOLD, 18));
+        text.setFont(new Font("Arial",Font.BOLD, 20));
         text.setBackground(new Color(194, 103, 160));
         text.setForeground(new Color(194, 103, 160));
         startGamePanel.add(text, "cell 4 2 2 1,align center center,grow 0 0");
         //---- text2 ----
         text2.setText("(пссс...Начинают крестики)");
         text2.setHorizontalAlignment(SwingConstants.CENTER);
-        text2.setFont(new Font("Arial",Font.BOLD, 10));
+        text2.setFont(new Font("Arial",Font.BOLD, 15));
         text2.setBackground(new Color(194, 103, 160));
         text2.setForeground(new Color(194, 103, 160));
         startGamePanel.add(text2, "cell 4 3 2 1,align center center,grow 0 0");

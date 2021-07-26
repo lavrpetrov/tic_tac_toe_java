@@ -5,6 +5,8 @@ import gui.PlayingFieldPanel;
 import gui.StartGamePanel;
 
 import javax.swing.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class Main {
     public static JFrame mainFrame;
@@ -22,7 +24,9 @@ public class Main {
         mainFrame.setLocation(300,150);
         mainFrame.setContentPane(startGamePanel.getStartGamePanel());
         mainFrame.setVisible(true);
-
-
+    }
+    public static void start(){
+        Control control=new Control();
+        playingField=new PlayingFieldPanel(control);
     }
 }

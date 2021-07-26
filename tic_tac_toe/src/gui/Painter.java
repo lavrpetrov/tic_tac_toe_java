@@ -226,16 +226,16 @@ public class Painter extends JPanel {
         g2.setColor(Color.BLACK);
         if (w1==null){
             int x=this.getWidth();
-            length=x/10;
+            length=x/9;
             int y=this.getHeight()/5;
-            w1=x/10*4;
-            w2=x/10*5;
-            w3=x/10*6;
-            w4=x/10*7;
+            w1=length*3;
+            w2=length*4;
+            w3=length*5;
+            w4=length*6;
             h1=y;
-            h2=y+x/10;
-            h3=y+2*x/10;
-            h4=y+3*x/10;
+            h2=y+length;
+            h3=y+2*length;
+            h4=y+3*length;
             drawLines.add(new Lines(w1,h1,w1,h4));
             drawLines.add(new Lines(w2,h1,w2,h4));
             drawLines.add(new Lines(w3,h1,w3,h4));
